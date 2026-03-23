@@ -1,9 +1,8 @@
 version: '3.9'
-
-services:
-  postgres:
-    image: postgres:latest
-    container_name: postgresSQL
+services: #сервисы для которых будут создаваться контейнеры
+  postgres: # PostgreSQL сервер
+    image: postgres:latest #образ, который будет использован для контейнера с базой данных
+    container_name: postgresSQL # имя контейнера
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -11,10 +10,11 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
       TZ: ${TIMEZONE}
     ports:
-      - "5432:5432"
+      - "5432:5432" #порты у контейнера и порты снаружи контейнера (то,как подлючаться к базе данных)
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-      - ./backups/postgres:/backup
+      - ./backups:/backups
+      - ./init-db:/docker-entrypoint-initdb.d
     env_file:
       - .env
     healthcheck:
@@ -30,7 +30,7 @@ services:
           cpus: '1'
           memory: 4G
     networks:
-      - postgres
+      - app-network
 networks:
-  postgres:
+  app-network:
     driver: bridge

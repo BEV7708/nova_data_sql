@@ -1,0 +1,30 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Данные (чтобы не засорять репозиторий)
+data/
+backups/
+*.sql
+*.csv
+*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+poetry.lock
+.python-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
